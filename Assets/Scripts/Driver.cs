@@ -12,15 +12,15 @@ public class Driver : MonoBehaviour
         {
             Debug.Log("Moving Forward");
         }
-        if(Keyboard.current.sKey.isPressed)
+        else if(Keyboard.current.sKey.isPressed)
         {
             Debug.Log("Moving Backward");
         }
-        if(Keyboard.current.aKey.isPressed)
+         if(Keyboard.current.aKey.isPressed)
         {
             Debug.Log("Turning Left");
         }
-        if(Keyboard.current.dKey.isPressed)
+        else if(Keyboard.current.dKey.isPressed)
         {
             Debug.Log("Turning Right");
         }
