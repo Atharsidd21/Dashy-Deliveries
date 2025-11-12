@@ -3,29 +3,43 @@ using UnityEngine.InputSystem;
 
 public class Driver : MonoBehaviour
 {
-   [SerializeField] float Rotationspeed = 02f;
     [SerializeField] float Movespeed = 0.05f;
+   [SerializeField] float Rotationspeed = 02f;
 
     void Update()
     {
-        if(Keyboard.current.wKey.isPressed)
+        //Method1: Using the old Input System
+        /* float move = Input.GetAxis("Vertical") *  Movespeed;
+         float steer = Input.GetAxis("Horizontal")  * Rotationspeed;
+
+         transform.Rotate(0, 0f, steer);
+         transform.Translate(0, move , 0);/*/
+
+        //Method2: Using the new Input System
+        float move = 0f;
+        float steer= 0f;
+        if (Keyboard.current.wKey.isPressed)
         {
+            move = 1f;
             Debug.Log("Moving Forward");
         }
-        else if(Keyboard.current.sKey.isPressed)
+        else if (Keyboard.current.sKey.isPressed)
         {
+            move = -1f;
             Debug.Log("Moving Backward");
         }
-         if(Keyboard.current.aKey.isPressed)
+        if (Keyboard.current.aKey.isPressed)
         {
+            steer = 1f;
             Debug.Log("Turning Left");
         }
-        else if(Keyboard.current.dKey.isPressed)
+        else if (Keyboard.current.dKey.isPressed)
         {
+            steer = -1f;
             Debug.Log("Turning Right");
         }
-            transform.Rotate(0, 0f, Rotationspeed);
-        transform.Translate(0, Movespeed, 0);
-        
+        transform.Rotate(0, 0f, steer * Rotationspeed);
+        transform.Translate(0, move * Movespeed, 0);
+
     }
 }
