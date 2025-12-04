@@ -5,6 +5,8 @@ public class Driver : MonoBehaviour
 {
     [SerializeField] float Movespeed = 0.05f;
    [SerializeField] float Rotationspeed = 02f;
+    [SerializeField]  private ParticleSystem effectsPrefab;
+    bool hasPackage; 
 
     void Update()
     {
@@ -54,12 +56,37 @@ public class Driver : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Triggered");
+        if (collision.CompareTag("PickUp Item")) //Using Tag to identify PickUp items
+        {
+
+            Debug.Log("Utha lia re baba");
+            hasPackage = true;
+
+            //Playing Particle Effect on Pickup
+            ParticleSystem ps = Instantiate(effectsPrefab, collision.transform.position, Quaternion.identity);
+            ps.Play();
+            Debug.Log("Particle Effect Played");
+            //Destroying the PickUp item on collision
+            Destroy(collision.gameObject);
+            //Destroying particle effect after Pickup 
+            Destroy(ps.gameObject, ps.main.duration + ps.main.startLifetime.constantMax);
+        }
+
+        if (collision.CompareTag("Customer")&& hasPackage) //Using Tag to identify Finish Line
+        {
+            Debug.Log("Item Delivered");
+            hasPackage = false;
+        }
     }
+
+
+
     /*Optional Just for Practice
     void OnTriggerExit2D(Collider2D collision) 
     {
         Debug.Log("Trigger Exited");
     }*/
      
+    
+
 }
