@@ -23,14 +23,15 @@ public class PickUp : MonoBehaviour
 
             //Playing Particle Effect on Pickup
             //Destroying the PickUp item on collision
+            GetComponent<ParticleSystem>().Play();
             Destroy(collision.gameObject, DelayTime);
             
-            ParticleSystem ps = Instantiate(effectsPrefab, collision.transform.position, Quaternion.identity);
+           /*/ ParticleSystem ps = Instantiate(effectsPrefab, collision.transform.position, Quaternion.identity);
             ps.Play();
 
             Debug.Log("Particle Effect Played");
             //Destroying particle effect after Pickup 
-            Destroy(ps.gameObject, ps.main.duration + ps.main.startLifetime.constantMax);
+            Destroy(ps.gameObject, ps.main.duration + ps.main.startLifetime.constantMax);*/
 
 
         }
@@ -39,6 +40,7 @@ public class PickUp : MonoBehaviour
         {
             Debug.Log("Item Delivered");
             hasPackage = false;
+            GetComponent<ParticleSystem>().Stop();
         }
 
     }
